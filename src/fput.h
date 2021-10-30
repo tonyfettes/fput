@@ -1,7 +1,9 @@
 // vim: ft=c
 #include <stdio.h>
 
-int fputi(int source, FILE *restrict stream);
+int fput_i(int source, FILE *restrict stream);
+#define fput_s fputs
+#define fput_c fputc
 
 #define fmt(type, arg) type, arg
 
@@ -16,7 +18,7 @@ int fputi(int source, FILE *restrict stream);
     n, ...) fn##n
 #define fput(stream, ...) __make_fput_call(fput, stream, __VA_ARGS__)
 #define fput0(stream)
-#define fput_direct(stream, type, arg) fput##type(arg, stream)
+#define fput_direct(stream, type, arg) fput_##type(arg, stream)
 #define fput_unpack(stream, fmt0) fput_direct(stream, fmt0)
 #define fput1(stream, fmt0) fput_unpack(stream, fmt fmt0)
 #define fput2(stream, fmt0, ...)  fput1(stream, fmt0); fput1(stream, __VA_ARGS__)

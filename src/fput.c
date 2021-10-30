@@ -37,7 +37,7 @@ void copy2(char *dst, const char *src) {
 }
 
 static char *format_decimal(char *out, uint64_t value, int size) {
-  out += size;
+  out += size - 1;
   *out = '\0';
   --out;
   while (value >= 100) {
@@ -54,7 +54,7 @@ static char *format_decimal(char *out, uint64_t value, int size) {
   return out;
 }
 
-int fputi(int source, FILE *restrict stream) {
+int fput_i(int source, FILE *restrict stream) {
   char digits[40];
   char *start = format_decimal(digits, source, 40);
   return fputs(start, stream);

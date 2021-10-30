@@ -1,0 +1,3 @@
+[submodule "tupco"]
+	path = tupco
+	url = https://github.com/tonyfettes/tupco.git

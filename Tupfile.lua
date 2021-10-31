@@ -6,6 +6,8 @@ local executable = gcc.recipes.executable
 local object = gcc.recipes.object
 local profiles = gcc.profiles
 
+fput_incdir = 'src'
+
 fput = unit {
   toolchain = gcc,
   recipes = {
@@ -21,4 +23,23 @@ fput = unit {
   },
 }
 
-fput:build()
+test = unit {
+  toolchain = gcc,
+  recipes = {
+    ["fput"] = executable {
+      dependencies = {
+        fput.recipes["libfput.a"]
+      },
+      sources = { 'test/src/fput.c', 'test/src/main.c' },
+      include_dirs = { fput_incdir },
+    },
+    ["fprintf"] = executable {
+      sources = { 'test/src/fprintf.c', 'test/src/main.c' },
+      include_dirs = { fput_incdir },
+    },
+  },
+  profiles = {
+    profiles.debug,
+    profiles.release
+  }
+}
